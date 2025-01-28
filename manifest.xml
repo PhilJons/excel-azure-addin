@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+    xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+    xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+    xsi:type="TaskPaneApp">
+    <Id>12345678-1234-1234-1234-123456789012</Id>
+    <Version>1.0.0.0</Version>
+    <ProviderName>Aura AI Taskforce</ProviderName>
+    <DefaultLocale>en-US</DefaultLocale>
+    <DisplayName DefaultValue="Azure AI Add-in for Excel" />
+    <Description DefaultValue="Harness the power of Azure AI directly in your spreadsheets" />
+    <IconUrl DefaultValue="https://YOUR_USERNAME.github.io/excel-azure-addin/assets/icon-32.png" />
+    <HighResolutionIconUrl DefaultValue="https://YOUR_USERNAME.github.io/excel-azure-addin/assets/icon-64.png" />
+    <SupportUrl DefaultValue="https://www.example.com/support" />
+    <AppDomains>
+        <AppDomain>https://login.microsoftonline.com</AppDomain>
+        <AppDomain>https://excel.officeapps.live.com</AppDomain>
+        <AppDomain>https://theauragroup-my.sharepoint.com</AppDomain>
+        <AppDomain>https://inclient.store.office.com</AppDomain>
+        <AppDomain>https://office.live.com</AppDomain>
+        <AppDomain>https://office365.com</AppDomain>
+    </AppDomains>
+    <Hosts>
+        <Host Name="Workbook" />
+    </Hosts>
+    <DefaultSettings>
+        <SourceLocation DefaultValue="https://YOUR_USERNAME.github.io/excel-azure-addin/taskpane.html" />
+    </DefaultSettings>
+    <Permissions>ReadWriteDocument</Permissions>
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+        <Hosts>
+            <Host xsi:type="Workbook">
+                <Runtimes>
+                    <Runtime resid="Taskpane.Url" lifetime="long" />
+                </Runtimes>
+                <AllFormFactors>
+                    <ExtensionPoint xsi:type="CustomFunctions">
+                        <Script>
+                            <SourceLocation resid="Functions.Script.Url" />
+                        </Script>
+                        <Page>
+                            <SourceLocation resid="Taskpane.Url" />
+                        </Page>
+                        <Metadata>
+                            <SourceLocation resid="Functions.Metadata.Url" />
+                        </Metadata>
+                    </ExtensionPoint>
+                </AllFormFactors>
+                <DesktopFormFactor>
+                    <GetStarted>
+                        <Title resid="GetStarted.Title"/>
+                        <Description resid="GetStarted.Description"/>
+                        <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+                    </GetStarted>
+                    <ExtensionPoint xsi:type="TaskPane">
+                        <SourceLocation resid="Taskpane.Url" />
+                    </ExtensionPoint>
+                </DesktopFormFactor>
+            </Host>
+        </Hosts>
+        <Resources>
+            <bt:Urls>
+                <bt:Url id="Functions.Script.Url" DefaultValue="https://YOUR_USERNAME.github.io/excel-azure-addin/functions.js" />
+                <bt:Url id="Functions.Metadata.Url" DefaultValue="https://YOUR_USERNAME.github.io/excel-azure-addin/functions.json" />
+                <bt:Url id="Taskpane.Url" DefaultValue="https://YOUR_USERNAME.github.io/excel-azure-addin/taskpane.html" />
+                <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812" />
+            </bt:Urls>
+            <bt:ShortStrings>
+                <bt:String id="GetStarted.Title" DefaultValue="Get started with the Azure AI Add-in" />
+            </bt:ShortStrings>
+            <bt:LongStrings>
+                <bt:String id="GetStarted.Description" DefaultValue="Your Azure AI Add-in is now loaded in Excel. Go to the Home tab and click the 'Show Taskpane' button to get started." />
+            </bt:LongStrings>
+        </Resources>
+    </VersionOverrides>
+</OfficeApp>

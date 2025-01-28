@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self' https://excel.officeapps.live.com https://theauragroup-my.sharepoint.com https://inclient.store.office.com" />
+    <title>Azure AI Add-in for Excel</title>
+
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" type="text/javascript"></script>
+    
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css" />
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 15px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .header {
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0078D4;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .button {
+            background-color: #0078D4;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #106EBE;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">Azure AI Add-in</div>
+    </div>
+
+    <div class="form-group">
+        <label for="endpoint">Azure Endpoint URL:</label>
+        <input type="text" id="endpoint" placeholder="https://your-resource.cognitiveservices.azure.com/" />
+    </div>
+
+    <div class="form-group">
+        <label for="apiKey">API Key:</label>
+        <input type="text" id="apiKey" placeholder="Enter your Azure API key" />
+    </div>
+
+    <button class="button" id="saveConfig">Save Configuration</button>
+
+    <div class="form-group" style="margin-top: 20px;">
+        <label for="instructions">Usage Instructions:</label>
+        <p>Use the AZURE.ANALYZE() function in your cells with these parameters:</p>
+        <ul>
+            <li>text: The content to analyze</li>
+            <li>systemPrompt (optional): Instructions for the AI</li>
+            <li>temperature (optional): Controls response creativity (0-1)</li>
+        </ul>
+        <p>Example: =AZURE.ANALYZE(A1, "Summarize this text", 0.7)</p>
+    </div>
+
+    <script>
+        Office.onReady(function(info) {
+            // Initialize the add-in
+            if (info.host === Office.HostType.Excel) {
+                document.getElementById('saveConfig').onclick = saveConfiguration;
+                loadConfiguration();
+            }
+        });
+
+        function saveConfiguration() {
+            const endpoint = document.getElementById('endpoint').value;
+            const apiKey = document.getElementById('apiKey').value;
+
+            // Save to Excel document settings
+            Office.context.document.settings.set('azureEndpoint', endpoint);
+            Office.context.document.settings.set('azureApiKey', apiKey);
+            Office.context.document.settings.saveAsync();
+        }
+
+        function loadConfiguration() {
+            const endpoint = Office.context.document.settings.get('azureEndpoint');
+            const apiKey = Office.context.document.settings.get('azureApiKey');
+
+            if (endpoint) document.getElementById('endpoint').value = endpoint;
+            if (apiKey) document.getElementById('apiKey').value = apiKey;
+        }
+    </script>
+</body>
+</html>

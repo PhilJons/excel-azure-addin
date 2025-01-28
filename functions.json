@@ -1,0 +1,36 @@
+{
+    "functions": [
+        {
+            "id": "AZURE.ANALYZE",
+            "name": "ANALYZE",
+            "namespace": "AZURE",
+            "description": "Analyze text using Azure AI",
+            "parameters": [
+                {
+                    "name": "text",
+                    "description": "The text content to analyze",
+                    "type": "string",
+                    "dimensionality": "scalar"
+                },
+                {
+                    "name": "systemPrompt",
+                    "description": "Optional instructions for the AI",
+                    "type": "string",
+                    "dimensionality": "scalar",
+                    "optional": true
+                },
+                {
+                    "name": "temperature",
+                    "description": "Controls response creativity (0-1)",
+                    "type": "number",
+                    "dimensionality": "scalar",
+                    "optional": true
+                }
+            ],
+            "result": {
+                "type": "string",
+                "dimensionality": "scalar"
+            }
+        }
+    ]
+}
